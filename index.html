@@ -30,8 +30,8 @@
     </div>
   </div>
 
-  <div class="hidden p-6 max-w-3xl mx-auto" id="dashboard">
-    <h2 class="text-3xl font-bold mb-6">داشبورد</h2>
+  <div class="hidden p-6 max-w-5xl mx-auto" id="dashboard">
+    <h2 class="text-3xl font-bold mb-6">🎯 داشبورد گزارش بت‌ها</h2>
 
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
       <div class="bg-slate-700 p-4 rounded">
@@ -45,13 +45,33 @@
     </div>
 
     <div class="mt-8">
-      <button onclick="requestReportPassword()" class="bg-teal-600 hover:bg-teal-700 p-3 rounded w-full mb-4">📊 گزارش روزانه</button>
-      <div id="reportContainer" class="space-y-3 hidden">
+      <button onclick="requestReportPassword()" class="bg-teal-600 hover:bg-teal-700 p-3 rounded w-full mb-4">📊 مشاهده گزارش روزانه</button>
+      <div id="reportContainer" class="hidden">
         <details class="bg-slate-800 p-4 rounded shadow">
-          <summary class="cursor-pointer text-lg font-semibold">📄 مشاهده گزارش‌ها</summary>
-          <div class="pt-3 space-y-2">
-            <div class="bg-slate-700 p-3 rounded">تنیس : تیلور فریتز - هابرت هارکاج | باخت تیلور فریتز | مبلغ ورودی: 0.7 mbtc</div>
-            <div class="bg-slate-700 p-3 rounded">فوتبال : لیورپول - چلسی | برد لیورپول | مبلغ ورودی: 1.2 mbtc</div>
+          <summary class="cursor-pointer text-lg font-semibold">📄 لیست گزارش‌ها</summary>
+          <div class="pt-5">
+            <table class="table-auto w-full border border-slate-600 text-sm">
+              <thead class="bg-slate-700 text-white">
+                <tr>
+                  <th class="p-2">مسابقه</th>
+                  <th class="p-2">آپشن</th>
+                  <th class="p-2">ضریب</th>
+                  <th class="p-2">وضعیت</th>
+                  <th class="p-2">مبلغ ورودی</th>
+                  <th class="p-2">مبلغ خروجی</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="bg-slate-700 text-center">
+                  <td class="p-2">اوکلاما تاندرس - مینه سوتا تیمبروولوز</td>
+                  <td class="p-2">برد اوکلاما تاندرس</td>
+                  <td class="p-2">1.29</td>
+                  <td class="p-2 text-green-400 font-bold">برد</td>
+                  <td class="p-2">1.5</td>
+                  <td class="p-2">1.935</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </details>
       </div>
