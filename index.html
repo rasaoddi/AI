@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>پنل گزارش بت‌ها</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Vazirmatn', sans-serif; direction: rtl; background-color: #0f172a; }
+  </style>
+</head>
+<body class="text-white">
+  <div class="flex justify-center items-center min-h-screen" id="loginBox">
+    <div class="bg-slate-800 p-8 rounded-lg shadow-md w-96">
+      <h2 class="text-2xl font-bold mb-4 text-center">ورود به پنل</h2>
+      <input id="username" type="text" placeholder="نام کاربری" class="w-full p-2 mb-3 rounded bg-slate-700 text-white">
+      <input id="password" type="password" placeholder="رمز عبور" class="w-full p-2 mb-3 rounded bg-slate-700 text-white">
+      <button onclick="handleLogin()" class="w-full bg-blue-600 hover:bg-blue-700 p-2 rounded">ورود</button>
+      <p id="loginError" class="text-red-500 text-sm mt-2 hidden text-center">اطلاعات ورود اشتباه است</p>
+    </div>
+  </div>
+
+  <div class="hidden p-8" id="loading">
+    <div class="flex justify-center items-center min-h-screen">
+      <div>
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto"></div>
+        <p class="mt-4 text-center text-lg">در حال دریافت اطلاعات...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="hidden p-6 max-w-3xl mx-auto" id="dashboard">
+    <h2 class="text-3xl font-bold mb-6">داشبورد</h2>
+
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div class="bg-slate-700 p-4 rounded">
+        <p>وضعیت طرح:</p>
+        <p class="text-green-400 font-bold">طرح 1 با ریسک 60٪</p>
+      </div>
+      <div class="bg-slate-700 p-4 rounded">
+        <p>تارگت:</p>
+        <p class="text-yellow-300 font-bold">1,032,000,000 تومان</p>
+      </div>
+    </div>
+
+    <div class="mt-8">
+      <button onclick="requestReportPassword()" class="bg-teal-600 hover:bg-teal-700 p-3 rounded w-full mb-4">📊 گزارش روزانه</button>
+      <div id="reportContainer" class="space-y-3 hidden">
+        <details class="bg-slate-800 p-4 rounded shadow">
+          <summary class="cursor-pointer text-lg font-semibold">📄 مشاهده گزارش‌ها</summary>
+          <div class="pt-3 space-y-2">
+            <div class="bg-slate-700 p-3 rounded">تنیس : تیلور فریتز - هابرت هارکاج | باخت تیلور فریتز | مبلغ ورودی: 0.7 mbtc</div>
+            <div class="bg-slate-700 p-3 rounded">فوتبال : لیورپول - چلسی | برد لیورپول | مبلغ ورودی: 1.2 mbtc</div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div class="mt-10 border-t border-slate-600 pt-6">
+      <h3 class="text-xl font-semibold mb-4">💸 برداشت</h3>
+      <select id="coin" class="w-full p-2 rounded bg-slate-700 text-white mb-3">
+        <option value="usdt">USDT (TRC20)</option>
+        <option value="btc">BTC</option>
+      </select>
+      <input id="wallet" type="text" placeholder="آدرس کیف پول" class="w-full p-2 mb-3 rounded bg-slate-700 text-white">
+      <input id="amount" type="text" placeholder="مقدار" class="w-full p-2 mb-3 rounded bg-slate-700 text-white">
+      <button onclick="submitWithdraw()" class="bg-orange-600 hover:bg-orange-700 p-2 w-full rounded">ارسال درخواست</button>
+      <p id="withdrawStatus" class="mt-2 text-center"></p>
+    </div>
+
+    <div class="mt-6 text-center text-blue-400 text-xs">وضعیت سرور: Deepseek ON</div>
+  </div>
+
+  <script>
+    function handleLogin() {
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+      if (user === 'hooman' && pass === 'hooman123') {
+        document.getElementById('loginBox').classList.add('hidden');
+        document.getElementById('loading').classList.remove('hidden');
+        setTimeout(() => {
+          document.getElementById('loading').classList.add('hidden');
+          document.getElementById('dashboard').classList.remove('hidden');
+        }, 10000);
+      } else {
+        document.getElementById('loginError').classList.remove('hidden');
+      }
+    }
+
+    function requestReportPassword() {
+      const pass = prompt('برای دیدن گزارش رمز عبور را وارد کنید:');
+      if (pass === 'hooman123') {
+        document.getElementById('reportContainer').classList.remove('hidden');
+      } else {
+        alert('رمز اشتباه است!');
+      }
+    }
+
+    async function submitWithdraw() {
+      const coin = document.getElementById('coin').value;
+      const wallet = document.getElementById('wallet').value;
+      const amount = document.getElementById('amount').value;
+      const status = document.getElementById('withdrawStatus');
+      status.textContent = 'در حال بررسی...';
+
+      await fetch('https://your-server.com/submit-withdraw', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ coin, wallet, amount })
+      });
+
+      status.textContent = 'درخواست با موفقیت ارسال شد';
+    }
+  </script>
+</body>
+</html>
